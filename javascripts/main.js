@@ -22,18 +22,6 @@ $(document).ready(function(){
     putFamilyInDOM();
   });
 
-  $("#add").on("click", function(){
-  let newItem = {
-    "age":$("#user-input").val(),
-    "gender": false,
-    "name": uid
-  };
-  FbAPI.addTodos(apiKeys, newItem).then(function(item){
-    console.log("inside addTodos", item);
-    putTodoInDOM();
-  });
-});
-
   $("body").on("click", ".delete", function(){
    let itemId = $(this).data("fbid");
    console.log(itemId);
@@ -50,14 +38,15 @@ $("#show-fam-mbr-btn").on('click', function(){
 });
 
 $("#add-fam-mbr-btn").on('click', function(){
+  let skillsArray = $("#new-member-skills").val().split(',');
   let newFamilyMember = {
   "age": $("#new-member-age").val(),
   "gender": $("#new-member-gender").val(),
   "name": $("#new-member-name").val(),
   "skills": {
-    "0": $("#new-member-skill-1").val(),
-    "1": $("#new-member-skill-2").val(),
-    "2": $("#new-member-skill-3").val()
+    "0": skillsArray[0].trim(),
+    "1": skillsArray[1].trim(),
+    "2": skillsArray[2].trim()
     }
   };
   FbAPI.addFamily(apiKeys, newFamilyMember).then(function(newFamilyMember){
